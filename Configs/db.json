@@ -1,0 +1,20 @@
+{
+  "HOST": "localhost",
+  "DATABASE": "taskmini",
+
+  "TABLES": {
+    "USERS": "users",
+    "USER_ROLES": "user_roles",
+    "USER_ROLE_TYPES": "user_role_types",
+
+    "PROJECTS": "projects",
+    "PROJECT_STATUSES": "project_statuses",
+
+    "TASKS": "tasks",
+    "TASK_STATUSES": "task_statuses",
+
+    "COMMENTS": "comments",
+    "WORKLOGS": "worklogs",
+    "RESOURCES": "resources"
+  }
+}
