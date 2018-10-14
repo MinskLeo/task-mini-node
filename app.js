@@ -1,6 +1,6 @@
 // Imports
 const express = require('express');
-let app = express();
+const app = express();
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
@@ -14,6 +14,8 @@ const SERVER_CONFIG = require('./Configs/server.json');
 // Routes
 const AuthRoutes = require('./Routes/Auth');
 const ProjectsRoutes = require('./Routes/Projects');
+const UsersRoutes = require('./Routes/Users');
+const AccountRoutes = require('./Routes/Account');
 
 // Constants
 const PORT = process.env.PORT | SERVER_CONFIG.PORT;
@@ -31,7 +33,9 @@ app.use(cookieParser());
 
 // Routing
 app.use('/auth', AuthRoutes(dbController, shemas));
+app.use('/account', AccountRoutes(dbController, shemas));
 app.use('/projects', ProjectsRoutes(dbController, shemas));
+app.use('/users', UsersRoutes(dbController, shemas));
 
 
 

@@ -1,16 +1,45 @@
 const jwt = require('jsonwebtoken');
 const cryptojs = require('crypto-js');
 const SECRET_CONFIG = require('../Configs/secret.json');
+const DBService = require('./DBService');
 
 class AuthService {
   static generateKey (payload) {
-    const token = jwt.sign({...payload}, SECRET_CONFIG.SECRET);
+    const token = jwt.sign({ ...payload }, SECRET_CONFIG.SECRET, {
+      expiresIn: SECRET_CONFIG.EXPIRES_IN
+    });
     return token;
   }
 
   static verifyKey (token) {
-    const data = jwt.verify(jwt, SECRET_CONFIG.SECRET);
-    return data;
+    try {
+      const data = jwt.verify(token, SECRET_CONFIG.SECRET);  
+      return {
+        isValid: true,
+        data: data
+      }
+    } catch (error) {
+      console.log('TOKEN IS NOT VALID!');
+      return {
+        isValid: false,
+        data: null
+      };
+    }
+  }
+
+  static async verifyAuth (shemas, token) {
+    const untoken = this.verifyKey(token);
+    if(untoken && untoken.isValid && untoken.data) {
+      const { login, password } = untoken.data;
+      const user = await DBService.findUserLoginPass(shemas, login, password);
+      if(user) {
+        return user;
+      }
+
+      return false;
+    }
+    
+    return false;
   }
 
   static hashPassword (password) {
