@@ -11,15 +11,14 @@ module.exports = function (dbController, shemas) {
     next();
   });
 
-  router.get('/:id/profile', async (req, res) => {
+  router.get('/:nickname/profile', async (req, res) => {
     const { auth } = req.headers;
-    const { id } = req.params;
+    const { nickname } = req.params;
     let ANSWER = new ResponseObject(403,{},'Forbidden');
-
     if(auth) {
       const verified = await AuthService.verifyAuth(shemas, auth);
       if (verified) {
-        const user = await DBService.findUserById(shemas, id);
+        const user = await DBService.findUserByNickname(shemas, nickname);
         if(user) {
           const roles = await DBService.findRolesById(shemas, user.roles);
           if (roles) {

@@ -38,4 +38,14 @@ module.exports = class DBService {
 
     return null;
   }
+
+  static findUserByNickname(shemas, nickname) {
+    if(nickname) {
+      const queryUserFind = shemas.User.findOne({ nickname },{ password: 0 });
+      return queryUserFind.exec();
+    }
+
+    return null;
+  }
+
 }
