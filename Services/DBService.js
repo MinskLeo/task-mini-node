@@ -48,4 +48,12 @@ module.exports = class DBService {
     return null;
   }
 
+  static findProjectsById(shemas, id) {
+    if(id) {
+      const queryProjectFind = shemas.Project.find({ members:id});
+      return queryProjectFind.exec();
+    }
+
+    return null;
+  }
 }
