@@ -9,6 +9,8 @@ module.exports = function (mongoose) {
     lastname: String,
     avatar: String,
     description: String,
+    phone: String,
+    email: String,
     roles: Array
   }, 'users');
 
@@ -29,6 +31,7 @@ module.exports = function (mongoose) {
   const Task = mongoose.model('Task',{
     index: Number,
     title: String,
+    taskword: String,
     description: String,
     role: String,
     resources: Array,

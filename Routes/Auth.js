@@ -12,13 +12,13 @@ module.exports = function (dbController, shemas) {
   });
 
   router.post('/login', async (req, res) => {
-    const { login, password } = req.body;
+    const { nickname, password } = req.body;
     const hashedPassword = AuthService.hashPassword(password);
-    const user = await DBService.findUserLoginPass(shemas, login, hashedPassword);
+    const user = await DBService.findUserLoginPass(shemas, nickname, hashedPassword);
 
     let ANSWER = null;
     if(user) {
-      const token = AuthService.generateKey({login, password: hashedPassword});
+      const token = AuthService.generateKey({nickname, password: hashedPassword});
       ANSWER = new ResponseObject(200,{token},'OK');
     } else {
       ANSWER = new ResponseObject(403,{},'Forbidden');

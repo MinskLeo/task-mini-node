@@ -30,8 +30,8 @@ class AuthService {
   static async verifyAuth (shemas, token) {
     const untoken = this.verifyKey(token);
     if(untoken && untoken.isValid && untoken.data) {
-      const { login, password } = untoken.data;
-      const user = await DBService.findUserLoginPass(shemas, login, password);
+      const { nickname, password } = untoken.data;
+      const user = await DBService.findUserLoginPass(shemas, nickname, password);
       if(user) {
         return user;
       }
